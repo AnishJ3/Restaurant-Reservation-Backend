@@ -2,8 +2,9 @@ const mongoose = require("mongoose")
 
 const BookingSchema = new mongoose.Schema(
     {
-        Name:String, 
-        MobNo:String,
+        UserId:String,
+        R_ID:String,
+        RName:String,
         Date:String,
         Tables:Number,
         Slot:String

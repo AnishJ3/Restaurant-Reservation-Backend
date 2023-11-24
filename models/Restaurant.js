@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 
 const ReviewSchema = new mongoose.Schema({
+    UserPic:String,
     Name: String,
     Ratings: String,
     Comment: String
@@ -12,6 +13,7 @@ const RestaurantSchema = new mongoose.Schema({
     Address: String,
     Images: Array,
     Ratings: Number,
+    AdminId:String,
     Reviews: [ReviewSchema], // Array of reviews
     About: String,
     MobNumber: String,

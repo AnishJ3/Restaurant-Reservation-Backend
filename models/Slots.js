@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const SlotsSchema = mongoose.Schema(
   {
+    R_ID:String,
     Slots: {
       type: Object,
       required: true
