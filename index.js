@@ -15,7 +15,7 @@ const verifyToken = require('./middleware/authMiddleware')
 app.use(cookieParser())
 app.use(
     cors({
-        origin: 'http://localhost:3000', // Adjust the origin to match your frontend URL
+        origin: 'http://localhost:3001', // Adjust the origin to match your frontend URL
         credentials: true,
     })
 );
@@ -566,23 +566,32 @@ app.post('/adminLogin', async (req, res) => {
         res.status(500).json({ success: false, message: "Internal Server Error" });
 
     }
+   
+
 
 })
 
-app.post('/logout', async(req, res) => {
-    const token = req.cookies.token;
+app.post('/logout',verifyToken, (req, res) => {
 
-    if (!token) {
-        return res.status(400).json({
-            message: 'Bad Request. Token not provided'
-        })
+    try{
+        const token = req.cookies.token;
+    
+        if (!token) {
+            return res.status(400).json({
+                message: 'Bad Request. Token not provided'
+            })
+        }
+    
+        // clearing the cookies
+    
+        cookies.set('token',{expires:Date.now()})
+    }
+    catch(err)
+    {
+        res.status(500).send(err)
     }
 
-    // clearing the cookies
-
-    return await res.clearCookie('token',{path:'/'}).status(200).json({
-        message: "Logged out Successfully"
-    })
+    
 })
 
 app.post('/user', verifyToken, (req, res) => {
