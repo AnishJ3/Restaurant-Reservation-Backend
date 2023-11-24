@@ -583,12 +583,24 @@ app.post('/logout',verifyToken, (req, res) => {
         }
     
         // clearing the cookies
-    
-        cookies.set('token',{expires:Date.now()})
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            expires: new Date(0), // Set the expiration date to the past
+        });
+
+        res.status(200).json({
+            message: 'Logged out Successfully'
+        });
     }
     catch(err)
     {
-        res.status(500).send(err)
+        console.error(err);
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error'
+        });
     }
 
     
