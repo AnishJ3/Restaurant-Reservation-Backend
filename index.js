@@ -580,9 +580,8 @@ app.post('/logout', (req, res) => {
 
     // clearing the cookies
 
-    return res.clearCookie('token',{path:'/'}).status(200).json({
-        message: "Logged out Successfully"
-    })
+    res.clearCookie('token',{path:'/'});
+    res.redirect('/')
 })
 
 app.post('/user', verifyToken, (req, res) => {
