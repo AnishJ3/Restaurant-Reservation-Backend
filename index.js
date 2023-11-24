@@ -15,7 +15,7 @@ const verifyToken = require('./middleware/authMiddleware')
 app.use(cookieParser())
 app.use(
     cors({
-        origin: 'http://localhost:3001', // Adjust the origin to match your frontend URL
+        origin: 'http://localhost:3000', // Adjust the origin to match your frontend URL
         credentials: true,
     })
 );
