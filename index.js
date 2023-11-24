@@ -15,7 +15,7 @@ const verifyToken = require('./middleware/authMiddleware')
 app.use(cookieParser())
 app.use(
     cors({
-        origin: 'http://localhost:3000', // Adjust the origin to match your frontend URL
+        origin: 'http://localhost:3001', // Adjust the origin to match your frontend URL
         credentials: true,
     })
 );
@@ -569,7 +569,7 @@ app.post('/adminLogin', async (req, res) => {
 
 })
 
-app.post('/logout', (req, res) => {
+app.post('/logout', async(req, res) => {
     const token = req.cookies.token;
 
     if (!token) {
@@ -580,7 +580,7 @@ app.post('/logout', (req, res) => {
 
     // clearing the cookies
 
-    return res.clearCookie('token',{path:'/'}).status(200).json({
+    return await res.clearCookie('token',{path:'/'}).status(200).json({
         message: "Logged out Successfully"
     })
 })
